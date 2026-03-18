@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Compte administrateur du site
+model Admin {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String // hashé avec argon2
+  name      String
+  createdAt DateTime @default(now())
+}
+
+// Blacklist des tokens JWT (déconnexion sécurisée)
+model BlacklistedToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  createdAt DateTime @default(now())
+}
+
+// Messages du formulaire de contact (optionnel — pour archiver)
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  message   String
+  replied   Boolean  @default(false)
+  messageId String? // RFC Message-ID pour le threading email
+  createdAt DateTime @default(now())
+}

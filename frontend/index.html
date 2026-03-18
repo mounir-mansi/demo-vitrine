@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NOM DU SITE</title>
+    <meta name="description" content="Description du site" />
+    <meta name="keywords" content="mot-clé 1, mot-clé 2, mot-clé 3" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://DOMAINE.fr/" />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="NOM DU SITE" />
+    <meta property="og:description" content="Description" />
+    <meta property="og:url" content="https://DOMAINE.fr/" />
+    <meta property="og:image" content="https://DOMAINE.fr/hero.jpg" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="NOM DU SITE" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="NOM DU SITE" />
+    <meta name="twitter:description" content="Description" />
+    <meta name="twitter:image" content="https://DOMAINE.fr/hero.jpg" />
+    <!-- JSON-LD Données structurées -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FoodEstablishment",
+      "name": "NOM",
+      "description": "Description de l'établissement.",
+      "url": "https://DOMAINE.fr/",
+      "telephone": "TELEPHONE",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "ADRESSE",
+        "addressLocality": "VILLE",
+        "addressRegion": "REGION",
+        "postalCode": "CODE_POSTAL",
+        "addressCountry": "FR"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+          "opens": "HEURE_OUVERTURE",
+          "closes": "HEURE_FERMETURE"
+        }
+      ],
+      "servesCuisine": ["TYPE_CUISINE"],
+      "priceRange": "€€",
+      "image": "https://DOMAINE.fr/hero.jpg",
+      "sameAs": ["INSTAGRAM_URL"]
+    }
+    </script>
+    <!-- Font Awesome pour les icônes -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

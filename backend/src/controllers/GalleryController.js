@@ -20,7 +20,7 @@ exports.listGallery = async (req, res) => {
     }));
     const photos = (data.Contents || [])
       .filter((obj) => !obj.Key.endsWith("/"))
-      .sort((a, b) => b.LastModified - a.LastModified)
+      .sort((a, b) => a.LastModified - b.LastModified)
       .map((obj) => ({
         src: `${process.env.S3_PUBLIC_URL}/${obj.Key}`,
         alt: "Photo",

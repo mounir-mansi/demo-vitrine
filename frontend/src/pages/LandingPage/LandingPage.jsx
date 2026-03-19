@@ -16,6 +16,7 @@ export default function LandingPage() {
   const [status, setStatus]   = useState(null);
   const [lightbox, setLightbox] = useState(null); // null | index
   const [galleryPhotos, setGalleryPhotos] = useState([]); // R2
+  const [galleryMain, setGalleryMain] = useState(null); // photo principale R2
   const [instaPhotos, setInstaPhotos] = useState([]);
   const [sections, setSections] = useState({});
   const [showAll, setShowAll] = useState(false);
@@ -42,7 +43,10 @@ export default function LandingPage() {
   useEffect(() => {
     fetch(`${hostname}/api/gallery`)
       .then((r) => r.json())
-      .then((data) => { if (data.photos?.length) setGalleryPhotos(data.photos); })
+      .then((data) => {
+        if (data.main) setGalleryMain(data.main);
+        if (data.photos?.length) setGalleryPhotos(data.photos);
+      })
       .catch(() => {});
   }, []);
 
@@ -54,8 +58,12 @@ export default function LandingPage() {
       .catch(() => {});
   }, []);
 
-  // Priorité : Instagram > R2 > fallback statique
-  const photos = instaPhotos.length > 0 ? instaPhotos : (galleryPhotos.length > 0 ? galleryPhotos : GALLERY_FALLBACK);
+  // Priorité : Instagram > R2 (main + photos) > fallback statique
+  const photos = instaPhotos.length > 0
+    ? instaPhotos
+    : (galleryMain || galleryPhotos.length > 0)
+      ? [...(galleryMain ? [galleryMain] : []), ...galleryPhotos]
+      : GALLERY_FALLBACK;
   const displayedPhotos = photos.slice(0, showAll ? photos.length : GALLERY_MAX);
 
   // Lightbox — clavier + scroll lock

@@ -19,7 +19,9 @@ export default function AdminScreen() {
 
   // ── Galerie ───────────────────────────────────────────
   const [gallery, setGallery] = useState([]);
+  const [mainPhoto, setMainPhoto] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [uploadingMain, setUploadingMain] = useState(false);
   const [galleryError, setGalleryError] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(null); // key à supprimer
 
@@ -52,7 +54,10 @@ export default function AdminScreen() {
     if (!isLoggedIn) return;
     fetch(`${hostname}/api/gallery`)
       .then((r) => r.json())
-      .then((data) => setGallery(data.photos || []));
+      .then((data) => {
+        setMainPhoto(data.main || null);
+        setGallery(data.photos || []);
+      });
   }, [isLoggedIn]);
 
   if (!isLoggedIn) return null;
@@ -115,6 +120,28 @@ export default function AdminScreen() {
   };
 
   // ── Handlers galerie ─────────────────────────────────
+  const uploadMainPhoto = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploadingMain(true);
+    setGalleryError(null);
+    const formData = new FormData();
+    formData.append("image", file);
+    try {
+      const r = await fetch(`${hostname}/admin/gallery/main`, {
+        method: "POST", credentials: "include", body: formData,
+      });
+      if (!r.ok) throw new Error();
+      const { url } = await r.json();
+      setMainPhoto({ src: `${url}?t=${Date.now()}`, alt: "Photo principale", key: "gallery/main" });
+    } catch {
+      setGalleryError("Errore durante l'upload della foto principale.");
+    } finally {
+      setUploadingMain(false);
+      e.target.value = "";
+    }
+  };
+
   const uploadPhotos = async (e) => {
     const files = Array.from(e.target.files);
     if (!files.length) return;
@@ -286,20 +313,51 @@ export default function AdminScreen() {
       {/* ── GALERIE ───────────────────────────────────── */}
       {tab === "gallery" && (
         <div className="admin-panel">
-          <div className="admin-gallery-upload">
-            <label className={`admin-btn admin-btn-send${uploading ? " disabled" : ""}`}>
-              {uploading ? "Caricamento…" : "＋ Aggiungi foto"}
-              <input
-                type="file"
-                accept="image/jpeg,image/png,image/webp"
-                multiple
-                style={{ display: "none" }}
-                onChange={uploadPhotos}
-                disabled={uploading}
-              />
-            </label>
-            {galleryError && <p className="admin-gallery-error">{galleryError}</p>}
+
+          {/* Boutons upload */}
+          <div className="admin-gallery-upload-row">
+            {/* Photo principale — grand bouton */}
+            <div className="admin-gallery-main-slot">
+              <label className={`admin-gallery-main-btn${uploadingMain ? " disabled" : ""}`}>
+                {mainPhoto
+                  ? <img src={mainPhoto.src} alt="principale" className="admin-gallery-main-preview" />
+                  : <span className="admin-gallery-main-placeholder"><i className="fas fa-image" /><br />Photo principale</span>
+                }
+                <span className="admin-gallery-main-label">
+                  {uploadingMain ? "Caricamento…" : mainPhoto ? "Cambia foto principale" : "＋ Photo principale"}
+                </span>
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  style={{ display: "none" }}
+                  onChange={uploadMainPhoto}
+                  disabled={uploadingMain}
+                />
+              </label>
+              {mainPhoto && (
+                <button className="admin-gallery-main-delete" onClick={() => setConfirmDelete("gallery/main")} title="Elimina">
+                  &#10005;
+                </button>
+              )}
+            </div>
+
+            {/* Autres photos — petit bouton */}
+            <div className="admin-gallery-other-slot">
+              <label className={`admin-btn admin-btn-send${uploading ? " disabled" : ""}`}>
+                {uploading ? "Caricamento…" : "＋ Aggiungi foto"}
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  multiple
+                  style={{ display: "none" }}
+                  onChange={uploadPhotos}
+                  disabled={uploading}
+                />
+              </label>
+            </div>
           </div>
+
+          {galleryError && <p className="admin-gallery-error">{galleryError}</p>}
 
           {gallery.length === 0 && !uploading && (
             <p className="admin-empty">Nessuna foto nella galleria.</p>

@@ -34,6 +34,9 @@ router.get("/api/gallery", listGallery);
 router.post("/admin/gallery/upload", verifyToken, (req, res, next) => upload("gallery").single("image")(req, res, next), (req, res) => {
   res.json({ url: `${process.env.S3_PUBLIC_URL}/${req.file.key}`, key: req.file.key });
 });
+router.post("/admin/gallery/main", verifyToken, (req, res, next) => uploadFixed("gallery/main").single("image")(req, res, next), (req, res) => {
+  res.json({ url: `${process.env.S3_PUBLIC_URL}/gallery/main`, key: "gallery/main" });
+});
 router.delete("/admin/gallery", verifyToken, deleteGalleryPhoto);
 
 // ── Sections (hero, about, events) ────────────────────

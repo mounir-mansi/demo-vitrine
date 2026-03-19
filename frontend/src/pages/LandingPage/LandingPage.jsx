@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { hostname } from "../../HostnameConnect/Hostname";
 import "./LandingPage.css";
 
 // Galerie statique — fallback si Instagram non configuré
 const GALLERY_FALLBACK = [
-  { src: "/gallery/photo-1.jpg", alt: "Photo 1" },
-  { src: "/gallery/photo-2.jpg", alt: "Photo 2" },
-  { src: "/gallery/photo-3.jpg", alt: "Photo 3" },
-  { src: "/gallery/photo-4.jpg", alt: "Photo 4" },
-  { src: "/gallery/photo-5.jpg", alt: "Photo 5" },
+  { src: "/gallery/photo-1.jpg", alt: "Il Locale — atmosfera" },
+  { src: "/gallery/photo-2.jpg", alt: "Il Locale — cocktail" },
+  { src: "/gallery/photo-3.jpg", alt: "Il Locale — aperitivo" },
+  { src: "/gallery/photo-4.jpg", alt: "Il Locale — serata" },
+  { src: "/gallery/photo-5.jpg", alt: "Il Locale — dettaglio" },
 ];
 
 export default function LandingPage() {
@@ -117,103 +117,111 @@ export default function LandingPage() {
 
       {/* ── HERO plein écran ───────────────────────────── */}
       <section id="home" className="hero">
-        <img src={sections.hero || "/hero.jpg"} alt="NOM DU SITE" className="hero-bg" />
+        <img src={sections.hero || "/hero.jpg"} alt="Il Locale" className="hero-bg" />
         <div className="hero-overlay" />
         <div className="hero-content">
-          <p className="hero-label">Slogan du site</p>
-          <h1 className="hero-title">NOM DU SITE</h1>
+          <p className="hero-label">Bar &bull; Aperitivi &bull; Milano</p>
+          <h1 className="hero-title">Il Locale</h1>
           <p className="hero-text">
-            Texte de présentation du site. Décrivez ici l&apos;ambiance,
-            les spécialités et ce qui rend l&apos;établissement unique.
+            Un angolo di Milano dove il tempo si ferma.
+            Aperitivi artigianali, cocktail d&apos;autore e un&apos;atmosfera
+            che fa sentire a casa.
           </p>
           <div className="hero-actions">
-            <a className="hero-button" href="#contact">Réserver</a>
-            <a className="hero-button-outline" href="#menu">Voir le menu</a>
+            <a className="hero-button" href="#contact">Prenota</a>
+            <a className="hero-button-outline" href="#menu">Scopri il menu</a>
           </div>
         </div>
       </section>
 
       {/* ── BANDE INFO ────────────────────────────────── */}
       <div className="info-band">
-        <span><i className="fas fa-map-marker-alt" /> ADRESSE</span>
-        <span><i className="fas fa-clock" /> HORAIRES</span>
-        <a href="tel:+33XXXXXXXXXX" className="info-tel"><i className="fas fa-phone" /> TÉLÉPHONE</a>
+        <span><i className="fas fa-map-marker-alt" /> Via Brera 14, Milano</span>
+        <span><i className="fas fa-clock" /> Mar&ndash;Dom&nbsp;: 17h &ndash; 01h</span>
+        <a href="tel:+390223456789" className="info-tel"><i className="fas fa-phone" /> +39&nbsp;02&nbsp;2345&nbsp;6789</a>
       </div>
 
       {/* ── À PROPOS ──────────────────────────────────── */}
       <section id="about" className="about">
         <div className="about-wrapper">
           <div className="about-text">
-            <h2 className="section-title">À propos</h2>
+            <h2 className="section-title">Chi siamo</h2>
             <p className="about-body">
-              Texte de présentation...
+              Aperto nel 2019 nel cuore di Brera, Il Locale è nato dall&apos;idea di
+              creare un luogo dove la qualità degli ingredienti incontra il
+              piacere della convivialità.
             </p>
             <p className="about-body">
-              Texte de présentation...
+              I nostri bartender selezionano ogni settimana distillati artigianali
+              e frutta di stagione per comporre cocktail unici e aperitivi
+              che cambiano con il ritmo delle stagioni.
             </p>
             <p className="about-body">
-              Texte de présentation...
+              Che tu voglia un Negroni classico al tramonto o un cocktail
+              sperimentale in serata, Il Locale è il tuo posto.
             </p>
           </div>
           <div className="about-img-wrap">
-            {/* Remplacer /about.jpg par la vraie photo */}
-            <img src={sections.about || "/about.jpg"} alt="À propos" className="about-img" />
+            <img src={sections.about || "/about.jpg"} alt="Chi siamo" className="about-img" />
           </div>
         </div>
       </section>
 
       {/* ── MENU ──────────────────────────────────────── */}
       <section id="menu" className="menu">
-        <h2 className="section-title">Notre Menu</h2>
+        <h2 className="section-title">Il Nostro Menu</h2>
         <p className="section-subtitle">
-          Découvrez notre sélection
+          Tutto artigianale, tutto di stagione
         </p>
         <div className="menu-grid">
           <div className="menu-card">
-            <div className="menu-icon"><i className="fas fa-coffee" /></div>
-            <h3>Catégorie 1</h3>
+            <div className="menu-icon"><i className="fas fa-cocktail" /></div>
+            <h3>Aperitivi</h3>
             <p>
-              Description de la catégorie 1. Détaillez les produits proposés.
+              Spritz, Negroni Sbagliato, Hugo e le nostre creazioni stagionali.
+              Sempre abbinati a un ricco tagliere di stuzzichini.
             </p>
           </div>
           <div className="menu-card">
-            <div className="menu-icon"><i className="fas fa-birthday-cake" /></div>
-            <h3>Catégorie 2</h3>
+            <div className="menu-icon"><i className="fas fa-wine-glass-alt" /></div>
+            <h3>Cocktail</h3>
             <p>
-              Description de la catégorie 2. Détaillez les produits proposés.
+              Una carta di 30 cocktail curati dal nostro bar manager.
+              Classici rivisitati e signature drink esclusivi.
             </p>
           </div>
           <div className="menu-card">
-            <div className="menu-icon"><i className="fas fa-utensils" /></div>
-            <h3>Catégorie 3</h3>
+            <div className="menu-icon"><i className="fas fa-leaf" /></div>
+            <h3>Analcolici</h3>
             <p>
-              Description de la catégorie 3. Détaillez les produits proposés.
+              Mocktail bilanciati, infusi freddi e centrifughe fresche.
+              Zero alcol, zero compromessi sul gusto.
             </p>
           </div>
           <div className="menu-card featured">
-            <div className="menu-icon"><i className="fas fa-wine-bottle" /></div>
-            <h3>Catégorie 4</h3>
+            <div className="menu-icon"><i className="fas fa-cheese" /></div>
+            <h3>Taglieri</h3>
             <p>
-              Description de la catégorie 4. Détaillez les produits proposés.
+              Salumi DOP, formaggi artigianali e bruschette tostate.
+              Il perfetto accompagnamento per ogni drink.
             </p>
-            <span className="menu-badge">Spécialité maison</span>
+            <span className="menu-badge">Specialità della casa</span>
           </div>
         </div>
-        {/* Bouton téléchargement menu PDF — placer /menu.pdf dans frontend/public/ */}
         <div className="menu-pdf">
           <a href="/menu.pdf" download className="menu-pdf-btn">
-            <i className="fas fa-file-pdf" /> Télécharger le menu complet (PDF)
+            <i className="fas fa-file-pdf" /> Scarica il menu completo (PDF)
           </a>
         </div>
       </section>
 
       {/* ── GALERIE ───────────────────────────────────── */}
       <section id="gallery" className="gallery">
-        <h2 className="section-title">Galerie</h2>
+        <h2 className="section-title">Galleria</h2>
         <p className="section-subtitle">
           {instaPhotos.length > 0
-            ? "Nos derniers moments sur Instagram"
-            : "Découvrez notre établissement en images"}
+            ? "I nostri ultimi momenti su Instagram"
+            : "Scopri l\u2019atmosfera del Locale"}
         </p>
         <div className="gallery-grid">
           {displayedPhotos.map((photo, i) => (
@@ -229,17 +237,17 @@ export default function LandingPage() {
         </div>
         {photos.length > GALLERY_MAX && (
           <button className="gallery-more" onClick={() => setShowAll((v) => !v)}>
-            {showAll ? "Voir moins" : `Voir toutes les photos (${photos.length})`}
+            {showAll ? "Vedi meno" : `Vedi tutte le foto (${photos.length})`}
           </button>
         )}
         {instaPhotos.length > 0 && (
           <a
-            href="INSTAGRAM_URL"
+            href="https://www.instagram.com/illocale.milano"
             target="_blank"
             rel="noreferrer"
             className="insta-link"
           >
-            <i className="fab fa-instagram" /> Suivez-nous sur Instagram
+            <i className="fab fa-instagram" /> Seguici su Instagram
           </a>
         )}
       </section>
@@ -247,40 +255,40 @@ export default function LandingPage() {
       {/* ── ÉVÉNEMENTS ────────────────────────────────── */}
       <section id="events" className="events" style={{ backgroundImage: `url("${sections.events || "/gallery/events.jpg"}")` }}>
         <div className="events-content">
-          <h2 className="section-title light">Événements</h2>
+          <h2 className="section-title light">Eventi</h2>
           <p className="section-subtitle light">
-            Découvrez nos prochains événements et animations.
+            Serate a tema, live music e degustazioni riservate.
           </p>
           <div className="events-list">
             <div className="event-item">
               <i className="fas fa-music" />
               <div>
-                <h4>Événement 1</h4>
-                <p>Description de l&apos;événement 1</p>
+                <h4>Live Jazz &mdash; ogni venerd&igrave;</h4>
+                <p>Musica dal vivo dalle 21h, ingresso libero</p>
               </div>
             </div>
             <div className="event-item">
-              <i className="fas fa-star" />
+              <i className="fas fa-wine-bottle" />
               <div>
-                <h4>Événement 2</h4>
-                <p>Description de l&apos;événement 2</p>
+                <h4>Degustazione mensile</h4>
+                <p>Selezione di gin artigianali con il nostro bartender</p>
               </div>
             </div>
             <div className="event-item">
               <i className="fas fa-calendar-alt" />
               <div>
-                <h4>Événement 3</h4>
-                <p>Description de l&apos;événement 3</p>
+                <h4>Happy Hour &mdash; 17h&ndash;19h</h4>
+                <p>Aperitivo + stuzzichini inclusi, tutti i giorni</p>
               </div>
             </div>
           </div>
           <a
             className="hero-button light-btn"
-            href="INSTAGRAM_URL"
+            href="https://www.instagram.com/illocale.milano"
             target="_blank"
             rel="noreferrer"
           >
-            Suivez-nous pour les prochains événements
+            Seguici per i prossimi eventi
           </a>
         </div>
       </section>
@@ -289,37 +297,36 @@ export default function LandingPage() {
       <section id="contact" className="contact">
         <div className="contact-wrapper">
           <div className="contact-info-block">
-            <h2 className="section-title">Contact</h2>
+            <h2 className="section-title">Contatti</h2>
             <ul className="contact-details">
               <li>
                 <i className="fas fa-map-marker-alt" />
-                <span>ADRESSE</span>
+                <span>Via Brera 14, 20121 Milano</span>
               </li>
               <li>
                 <i className="fas fa-clock" />
-                <span>HORAIRES</span>
+                <span>Mar&ndash;Dom&nbsp;: 17h &ndash; 01h &nbsp;|&nbsp; Lun&nbsp;: chiuso</span>
               </li>
               <li>
                 <i className="fas fa-phone" />
-                <a href="tel:+33XXXXXXXXXX" className="contact-link">TÉLÉPHONE</a>
+                <a href="tel:+390223456789" className="contact-link">+39&nbsp;02&nbsp;2345&nbsp;6789</a>
               </li>
               <li>
                 <i className="fab fa-instagram" />
                 <a
-                  href="INSTAGRAM_URL"
+                  href="https://www.instagram.com/illocale.milano"
                   target="_blank"
                   rel="noreferrer"
                   className="contact-link"
                 >
-                  @INSTAGRAM_HANDLE
+                  @illocale.milano
                 </a>
               </li>
             </ul>
-            {/* Google Maps — remplacer l'adresse dans l'URL */}
             <iframe
-              title="Localisation"
+              title="Localizzazione"
               className="contact-map"
-              src="https://www.google.com/maps?q=ADRESSE&output=embed"
+              src="https://www.google.com/maps?q=Via+Brera+14+Milano&output=embed"
               allowFullScreen
               loading="lazy"
               referrerPolicy="strict-origin-when-cross-origin"
@@ -327,13 +334,13 @@ export default function LandingPage() {
           </div>
 
           <div className="contact-form-block">
-            <h3 className="contact-cta-title">Appelez-nous</h3>
+            <h3 className="contact-cta-title">Chiamaci</h3>
             <div className="contact-cta">
-              <a href="tel:+33XXXXXXXXXX" className="res-btn res-btn--primary">
-                <i className="fas fa-phone" /> Appeler&nbsp;: TÉLÉPHONE
+              <a href="tel:+390223456789" className="res-btn res-btn--primary">
+                <i className="fas fa-phone" /> Chiama&nbsp;: +39&nbsp;02&nbsp;2345&nbsp;6789
               </a>
               <a
-                href="https://wa.me/33XXXXXXXXX?text=Bonjour%2C%20je%20voudrais%20réserver."
+                href="https://wa.me/390223456789?text=Ciao%2C%20vorrei%20prenotare."
                 target="_blank"
                 rel="noreferrer"
                 className="res-btn res-btn--whatsapp"
@@ -341,37 +348,37 @@ export default function LandingPage() {
                 <i className="fab fa-whatsapp" /> WhatsApp
               </a>
             </div>
-            <h3>Écrivez-nous</h3>
+            <h3>Scrivici</h3>
             <form className="contact-form" onSubmit={handleSubmit}>
               <input
                 type="text"
-                placeholder="Votre nom"
+                placeholder="Il tuo nome"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 required
               />
               <input
                 type="email"
-                placeholder="Votre email"
+                placeholder="La tua email"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 required
               />
               <textarea
-                placeholder="Votre message (réservation, informations...)"
+                placeholder="Il tuo messaggio (prenotazione, informazioni...)"
                 rows={9}
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
                 required
               />
               <button type="submit" disabled={status === "loading"}>
-                {status === "loading" ? "Envoi..." : "Envoyer le message"}
+                {status === "loading" ? "Invio..." : "Invia messaggio"}
               </button>
               {status === "success" && (
-                <p className="form-success">Message envoyé&nbsp;! Nous vous répondrons rapidement.</p>
+                <p className="form-success">Messaggio inviato&nbsp;! Ti risponderemo presto.</p>
               )}
               {status === "error" && (
-                <p className="form-error">Erreur lors de l&apos;envoi. Réessayez ou appelez-nous.</p>
+                <p className="form-error">Errore durante l&apos;invio. Riprova o chiamaci.</p>
               )}
             </form>
           </div>
@@ -380,9 +387,9 @@ export default function LandingPage() {
 
       {/* ── FOOTER ────────────────────────────────────── */}
       <footer className="footer">
-        <p className="footer-name">NOM DU SITE</p>
-        <p>ADRESSE</p>
-        <p>© {new Date().getFullYear()} NOM DU SITE. Tous droits réservés.</p>
+        <p className="footer-name">Il Locale</p>
+        <p>Via Brera 14, 20121 Milano</p>
+        <p>© {new Date().getFullYear()} Il Locale. Tutti i diritti riservati.</p>
       </footer>
 
     </div>

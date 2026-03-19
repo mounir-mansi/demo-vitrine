@@ -1,18 +1,18 @@
 /* ============================
-   VARIABLES — Palette générique
+   VARIABLES — Il Locale (vert olive + crème)
    ============================ */
 :root {
-  --primary:       #2c3e50;   /* couleur principale — à personnaliser */
-  --primary-dark:  #1a252f;
-  --primary-light: #3d5166;
-  --accent:        #e67e22;   /* couleur d'accent — à personnaliser */
-  --accent-light:  #f39c12;
-  --navy:          #0f1e30;   /* fond sombre */
-  --gold:          #C9A035;
-  --gold-light:    #e8c46a;
-  --cream:         #fdf8f0;
-  --text:          #1a1a2e;
-  --text-light:    #5a6a7a;
+  --primary:       #4a5e3a;   /* vert olive foncé */
+  --primary-dark:  #2f3d24;
+  --primary-light: #6a7e58;
+  --accent:        #c8a96e;   /* or chaud / sable */
+  --accent-light:  #dfc28f;
+  --navy:          #1e2b14;   /* fond sombre olive */
+  --gold:          #b8935a;
+  --gold-light:    #d4b07a;
+  --cream:         #f5f0e8;   /* crème/beige chaud */
+  --text:          #1e2b14;
+  --text-light:    #6b7355;
   --white:         #ffffff;
 }
 

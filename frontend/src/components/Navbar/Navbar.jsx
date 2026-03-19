@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../utils/useConnecte";
 import { hostname } from "../../HostnameConnect/Hostname";
@@ -24,7 +24,7 @@ export default function Navbar() {
   return (
     <nav className="site-nav">
       <a href="/#home" className="site-nav-brand" onClick={close}>
-        <span className="site-nav-logo-text">NOM DU SITE</span>
+        <span className="site-nav-logo-text">Il Locale</span>
       </a>
 
       <button
@@ -36,15 +36,15 @@ export default function Navbar() {
       </button>
 
       <ul className={`site-nav-links${menuOpen ? " open" : ""}`}>
-        <li><a href="/#home" onClick={close}>Accueil</a></li>
-        <li><a href="/#about" onClick={close}>À propos</a></li>
+        <li><a href="/#home" onClick={close}>Home</a></li>
+        <li><a href="/#about" onClick={close}>Chi siamo</a></li>
         <li><a href="/#menu" onClick={close}>Menu</a></li>
-        <li><a href="/#gallery" onClick={close}>Galerie</a></li>
-        <li><a href="/#events" onClick={close}>Événements</a></li>
-        <li><a href="/#contact" onClick={close}>Contact</a></li>
+        <li><a href="/#gallery" onClick={close}>Galleria</a></li>
+        <li><a href="/#events" onClick={close}>Eventi</a></li>
+        <li><a href="/#contact" onClick={close}>Contatti</a></li>
         <li>
-          <a href="tel:+33XXXXXXXXXX" className="site-nav-call" onClick={close}>
-            <i className="fas fa-phone" /> +33 X XX XX XX XX
+          <a href="tel:+390223456789" className="site-nav-call" onClick={close}>
+            <i className="fas fa-phone" /> +39 02 2345 6789
           </a>
         </li>
         {isLoggedIn && (
@@ -52,7 +52,7 @@ export default function Navbar() {
             <li><a href="/admin" onClick={close}>Admin</a></li>
             <li>
               <button className="site-nav-logout" onClick={handleLogout}>
-                Déconnexion
+                Disconnetti
               </button>
             </li>
           </>

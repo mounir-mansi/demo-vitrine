@@ -190,6 +190,7 @@ export default function AdminScreen() {
       </div>
 
       {/* ── ONGLETS ───────────────────────────────────── */}
+      <div className="admin-tabs-wrap">
       <div className="admin-tabs">
         <button
           className={`admin-tab${tab === "messages" ? " active" : ""}`}
@@ -210,6 +211,7 @@ export default function AdminScreen() {
         >
           Foto sezioni
         </button>
+      </div>
       </div>
 
       {/* ── MESSAGES ──────────────────────────────────── */}

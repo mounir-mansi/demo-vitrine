@@ -1,18 +1,18 @@
 /* ============================
-   VARIABLES — Il Locale (vert olive + crème)
+   VARIABLES — Il Locale (Milano Notte — bleu nuit + ambre)
    ============================ */
 :root {
-  --primary:       #4a5e3a;   /* vert olive foncé */
-  --primary-dark:  #2f3d24;
-  --primary-light: #6a7e58;
-  --accent:        #c8a96e;   /* or chaud / sable */
-  --accent-light:  #dfc28f;
-  --navy:          #1e2b14;   /* fond sombre olive */
-  --gold:          #b8935a;
-  --gold-light:    #d4b07a;
-  --cream:         #f5f0e8;   /* crème/beige chaud */
-  --text:          #1e2b14;
-  --text-light:    #6b7355;
+  --primary:       #0d2149;   /* bleu nuit profond */
+  --primary-dark:  #050d1f;
+  --primary-light: #1a3a72;
+  --accent:        #f5a623;   /* ambre vif */
+  --accent-light:  #ffc04a;
+  --navy:          #050d1f;   /* bleu-noir */
+  --gold:          #f5a623;
+  --gold-light:    #ffc04a;
+  --cream:         #fafafa;   /* blanc pur */
+  --text:          #050d1f;
+  --text-light:    #4a6090;
   --white:         #ffffff;
 }
 
@@ -894,16 +894,16 @@
   background-color: var(--primary);
   color: rgba(255, 255, 255, 0.75);
   text-align: center;
-  padding: 2em 1em;
-  font-size: 0.9em;
-  line-height: 1.8;
+  padding: 0.8em 1em;
+  font-size: 0.82em;
+  line-height: 1.4;
 }
 
 .footer-name {
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: 700;
   color: var(--gold-light);
-  margin-bottom: 0.2em;
+  margin-bottom: 0.1em;
 }
 
 /* ============================
@@ -1098,6 +1098,6 @@
   /* FOOTER */
   .footer {
     font-size: 0.82em;
-    padding: 1.5em 1em;
+    padding: 1em 1em;
   }
 }

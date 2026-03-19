@@ -129,10 +129,10 @@ export default function LandingPage() {
         <img src={sections.hero || "/hero.jpg"} alt="Il Locale" className="hero-bg" />
         <div className="hero-overlay" />
         <div className="hero-content">
-          <p className="hero-label">Bar &bull; Aperitivi &bull; Milano</p>
+          <p className="hero-label">Bar &bull; Aperitivi &bull; Torino</p>
           <h1 className="hero-title">Il Locale</h1>
           <p className="hero-text">
-            Un angolo di Milano dove il tempo si ferma.
+            Un angolo di Torino dove il tempo si ferma.
             Aperitivi artigianali, cocktail d&apos;autore e un&apos;atmosfera
             che fa sentire a casa.
           </p>
@@ -145,7 +145,7 @@ export default function LandingPage() {
 
       {/* ── BANDE INFO ────────────────────────────────── */}
       <div className="info-band">
-        <span><i className="fas fa-map-marker-alt" /> Via Brera 14, Milano</span>
+        <span><i className="fas fa-map-marker-alt" /> Via Po 12, Torino</span>
         <span><i className="fas fa-clock" /> Mar&ndash;Dom&nbsp;: 17h &ndash; 01h</span>
         <a href="tel:+390223456789" className="info-tel"><i className="fas fa-phone" /> +39&nbsp;02&nbsp;2345&nbsp;6789</a>
       </div>
@@ -156,7 +156,7 @@ export default function LandingPage() {
           <div className="about-text">
             <h2 className="section-title">Chi siamo</h2>
             <p className="about-body">
-              Aperto nel 2019 nel cuore di Brera, Il Locale è nato dall&apos;idea di
+              Aperto nel 2019 nel cuore di Torino, Il Locale è nato dall&apos;idea di
               creare un luogo dove la qualità degli ingredienti incontra il
               piacere della convivialità.
             </p>
@@ -310,7 +310,7 @@ export default function LandingPage() {
             <ul className="contact-details">
               <li>
                 <i className="fas fa-map-marker-alt" />
-                <span>Via Brera 14, 20121 Milano</span>
+                <span>Via Po 12, 10124 Torino</span>
               </li>
               <li>
                 <i className="fas fa-clock" />
@@ -336,7 +336,7 @@ export default function LandingPage() {
               <iframe
                 title="Localizzazione"
                 className={`contact-map${mapActive ? " active" : ""}`}
-                src="https://www.google.com/maps?q=Via+Brera+14+Milano&output=embed"
+                src="https://www.google.com/maps?q=Via+Po+12+Torino&output=embed"
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="strict-origin-when-cross-origin"
@@ -415,8 +415,7 @@ export default function LandingPage() {
       {/* ── FOOTER ────────────────────────────────────── */}
       <footer className="footer">
         <p className="footer-name">Il Locale</p>
-        <p>Via Brera 14, 20121 Milano</p>
-        <p>© {new Date().getFullYear()} Il Locale. Tutti i diritti riservati.</p>
+        <p>Via Po 12, 10124 Torino &nbsp;·&nbsp; © {new Date().getFullYear()} Il Locale</p>
       </footer>
 
     </div>

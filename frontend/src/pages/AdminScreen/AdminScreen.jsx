@@ -165,6 +165,31 @@ export default function AdminScreen() {
     e.target.value = "";
   };
 
+  const replacePhoto = async (e, oldKey) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    e.target.value = "";
+    const formData = new FormData();
+    formData.append("image", file);
+    try {
+      // Upload nouvelle photo
+      const r = await fetch(`${hostname}/admin/gallery/upload`, {
+        method: "POST", credentials: "include", body: formData,
+      });
+      if (!r.ok) throw new Error();
+      const { url, key } = await r.json();
+      // Supprime l'ancienne
+      await fetch(`${hostname}/admin/gallery`, {
+        method: "DELETE", credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ key: oldKey }),
+      });
+      setGallery((prev) => prev.map((p) => p.key === oldKey ? { src: url, alt: "Photo", key } : p));
+    } catch {
+      setGalleryError("Errore durante la sostituzione della foto.");
+    }
+  };
+
   const confirmAndDelete = async () => {
     if (!confirmDelete) return;
     try {
@@ -174,6 +199,7 @@ export default function AdminScreen() {
         body: JSON.stringify({ key: confirmDelete }),
       });
       if (!r.ok) throw new Error();
+      if (confirmDelete === "gallery/main") setMainPhoto(null);
       setGallery((prev) => prev.filter((p) => p.key !== confirmDelete));
     } catch {
       setGalleryError("Errore durante l'eliminazione.");
@@ -341,8 +367,9 @@ export default function AdminScreen() {
               )}
             </div>
 
-            {/* Autres photos — petit bouton */}
+            {/* Autres photos — même style que section-item */}
             <div className="admin-gallery-other-slot">
+              <p className="admin-section-label">Altre foto della galleria</p>
               <label className={`admin-btn admin-btn-send${uploading ? " disabled" : ""}`}>
                 {uploading ? "Caricamento…" : "＋ Aggiungi foto"}
                 <input
@@ -367,11 +394,11 @@ export default function AdminScreen() {
             {gallery.map((photo) => (
               <div key={photo.key} className="admin-gallery-item">
                 <img src={photo.src} alt={photo.alt} />
-                <button
-                  className="admin-gallery-delete"
-                  onClick={() => setConfirmDelete(photo.key)}
-                  title="Elimina"
-                >
+                <label className="admin-gallery-replace" title="Sostituisci">
+                  <i className="fas fa-pencil-alt" />
+                  <input type="file" accept="image/jpeg,image/png,image/webp" style={{ display: "none" }} onChange={(e) => replacePhoto(e, photo.key)} />
+                </label>
+                <button className="admin-gallery-delete" onClick={() => setConfirmDelete(photo.key)} title="Elimina">
                   &#10005;
                 </button>
               </div>

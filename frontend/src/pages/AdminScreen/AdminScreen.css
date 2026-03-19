@@ -174,19 +174,20 @@
 }
 
 .admin-card-body {
-  margin-top: 1rem;
-  color: rgba(255,255,255,0.8);
+  margin: 0.75rem -1.25rem -1rem;
+  color: var(--primary, #0d2149);
   line-height: 1.6;
   white-space: pre-wrap;
-  border-top: 1px solid rgba(255,255,255,0.12);
-  padding-top: 0.75rem;
+  background: #fff;
+  padding: 0.75rem 1.25rem 0;
+  border-top: 1px solid rgba(13,33,73,0.1);
 }
 
 .admin-badge {
   font-size: 0.75rem;
-  background: rgba(255,255,255,0.12);
-  color: #a8e6a3;
-  border: 1px solid rgba(168,230,163,0.3);
+  background: rgba(13,33,73,0.08);
+  color: #2a7a2a;
+  border: 1px solid rgba(42,122,42,0.3);
   border-radius: 4px;
   padding: 0.1em 0.5em;
 }
@@ -194,8 +195,11 @@
 .admin-card-actions {
   display: flex;
   gap: 0.5rem;
-  margin-top: 0.75rem;
+  margin: 0.75rem -1.25rem -1rem;
   flex-wrap: wrap;
+  background: #fff;
+  padding: 0.75rem 1.25rem 1rem;
+  border-top: 1px solid rgba(13,33,73,0.08);
 }
 
 /* ── BOUTONS ─────────────────────────────────────────── */
@@ -215,13 +219,13 @@
 
 .admin-btn-reply {
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.5);
-  color: #fff;
+  border: 1px solid var(--primary, #0d2149);
+  color: var(--primary, #0d2149);
 }
 
 .admin-btn-reply:hover {
-  background: rgba(255,255,255,0.15);
-  border-color: #fff;
+  background: var(--primary, #0d2149);
+  color: #fff;
 }
 
 .admin-btn-delete {
@@ -323,19 +327,12 @@
 .admin-gallery-other-slot {
   flex: 1;
   display: flex;
-  align-items: stretch;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
   background: var(--primary, #0d2149);
   border-radius: 10px;
-  padding: 1.25rem;
-}
-
-.admin-gallery-other-slot > label {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 1rem 1.25rem;
 }
 
 .admin-gallery-main-btn {
@@ -437,6 +434,28 @@
   object-fit: cover;
 }
 
+.admin-gallery-replace {
+  position: absolute;
+  top: 0.4rem;
+  left: 0.4rem;
+  background: rgba(0, 0, 0, 0.55);
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 1.6rem;
+  height: 1.6rem;
+  cursor: pointer;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.admin-gallery-replace:hover {
+  background: var(--accent, #f5a623);
+}
+
 .admin-gallery-delete {
   position: absolute;
   top: 0.4rem;
@@ -452,13 +471,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.admin-gallery-item:hover .admin-gallery-delete,
-.admin-gallery-item:focus-within .admin-gallery-delete {
-  opacity: 1;
 }
 
 /* ── SECTIONS ────────────────────────────────────────── */

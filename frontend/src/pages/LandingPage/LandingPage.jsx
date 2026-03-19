@@ -24,6 +24,19 @@ export default function LandingPage() {
   const [mapActive, setMapActive] = useState(false);
   const GALLERY_MAX = 5;
 
+  // Scroll vers l'ancre après montage (liens depuis /admin)
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash) return;
+    let attempts = 0;
+    const tryScroll = () => {
+      const el = document.querySelector(hash);
+      if (el) { el.scrollIntoView({ behavior: "smooth" }); return; }
+      if (++attempts < 20) setTimeout(tryScroll, 100);
+    };
+    setTimeout(tryScroll, 100);
+  }, []);
+
   // Bouton retour en haut
   useEffect(() => {
     const handler = () => setShowTop(window.scrollY > 300);

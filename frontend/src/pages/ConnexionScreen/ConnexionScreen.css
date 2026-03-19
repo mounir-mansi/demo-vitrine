@@ -1,0 +1,121 @@
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100dvh;
+  padding: 1.5em;
+  background-color: var(--cream, #f5f0e8);
+}
+
+.login-box {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 2.5em 2em;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+.login-logo {
+  text-align: center;
+  margin-bottom: 1.8em;
+}
+
+.login-logo-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary, #4a5e3a);
+  letter-spacing: 0.04em;
+}
+
+.login-logo-sub {
+  font-size: 0.85rem;
+  color: var(--text-light, #6b7355);
+  margin-top: 0.2em;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.login-input {
+  padding: 0.75em 1em;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+  background: #fafafa;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login-input:focus {
+  border-color: var(--primary, #4a5e3a);
+}
+
+.login-password-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.login-password-wrap .login-input {
+  padding-right: 3em;
+}
+
+.login-eye {
+  position: absolute;
+  right: 0.9em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-light, #6b7355);
+  font-size: 0.9rem;
+  padding: 0;
+  line-height: 1;
+}
+
+.login-eye:hover {
+  color: var(--primary, #4a5e3a);
+}
+
+.login-error {
+  color: #c0392b;
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+.login-btn {
+  background: var(--primary, #4a5e3a);
+  color: #fff;
+  border: none;
+  padding: 0.85em;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 0.25em;
+}
+
+.login-btn:hover {
+  background: var(--primary-dark, #2f3d24);
+}
+
+.login-back {
+  display: block;
+  text-align: center;
+  margin-top: 1.2em;
+  font-size: 0.88rem;
+  color: var(--text-light, #6b7355);
+  text-decoration: none;
+}
+
+.login-back:hover {
+  color: var(--primary, #4a5e3a);
+  text-decoration: underline;
+}

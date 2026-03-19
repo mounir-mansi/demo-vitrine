@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../utils/useConnecte";
 import { hostname } from "../../HostnameConnect/Hostname";
@@ -7,19 +7,23 @@ import "./AdminScreen.css";
 export default function AdminScreen() {
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
+  const [tab, setTab] = useState("messages"); // "messages" | "gallery" | "sections"
+
+  // ── Messages ─────────────────────────────────────────
   const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingMsgs, setLoadingMsgs] = useState(true);
   const [expanded, setExpanded] = useState(null);
   const [replyOpen, setReplyOpen] = useState(null);
   const [replyText, setReplyText] = useState("");
   const [sending, setSending] = useState(false);
 
-  // Galerie
+  // ── Galerie ───────────────────────────────────────────
   const [gallery, setGallery] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [galleryError, setGalleryError] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(null); // key à supprimer
 
-  // Sections (hero, about, events)
+  // ── Sections ──────────────────────────────────────────
   const [sections, setSections] = useState({});
   const [sectionUploading, setSectionUploading] = useState({});
   const [sectionError, setSectionError] = useState(null);
@@ -33,7 +37,7 @@ export default function AdminScreen() {
     fetch(`${hostname}/admin/messages`, { credentials: "include" })
       .then((r) => r.json())
       .then((data) => setMessages(Array.isArray(data) ? data : []))
-      .finally(() => setLoading(false));
+      .finally(() => setLoadingMsgs(false));
   }, [isLoggedIn]);
 
   useEffect(() => {
@@ -51,80 +55,26 @@ export default function AdminScreen() {
       .then((data) => setGallery(data.photos || []));
   }, [isLoggedIn]);
 
-  const uploadSection = async (e, slot) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setSectionUploading((prev) => ({ ...prev, [slot]: true }));
-    setSectionError(null);
-    const formData = new FormData();
-    formData.append("image", file);
-    try {
-      const r = await fetch(`${hostname}/admin/sections/${slot}`, {
-        method: "POST",
-        credentials: "include",
-        body: formData,
-      });
-      if (!r.ok) throw new Error();
-      const { url } = await r.json();
-      setSections((prev) => ({ ...prev, [slot]: url }));
-    } catch {
-      setSectionError("Erreur lors de l'upload.");
-    } finally {
-      setSectionUploading((prev) => ({ ...prev, [slot]: false }));
-      e.target.value = "";
-    }
-  };
-
-  const uploadPhoto = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setUploading(true);
-    setGalleryError(null);
-    const formData = new FormData();
-    formData.append("image", file);
-    try {
-      const r = await fetch(`${hostname}/admin/gallery/upload`, {
-        method: "POST",
-        credentials: "include",
-        body: formData,
-      });
-      if (!r.ok) throw new Error();
-      const { url, key } = await r.json();
-      setGallery((prev) => [{ src: url, alt: "Photo", key }, ...prev]);
-    } catch {
-      setGalleryError("Erreur lors de l'upload.");
-    } finally {
-      setUploading(false);
-      e.target.value = "";
-    }
-  };
-
-  const deletePhoto = async (key) => {
-    if (!window.confirm("Supprimer cette photo ?")) return;
-    try {
-      const r = await fetch(`${hostname}/admin/gallery`, {
-        method: "DELETE",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ key }),
-      });
-      if (!r.ok) throw new Error();
-      setGallery((prev) => prev.filter((p) => p.key !== key));
-    } catch {
-      setGalleryError("Erreur lors de la suppression.");
-    }
-  };
-
   if (!isLoggedIn) return null;
 
+  const unreadCount = messages.filter((m) => !m.read).length;
+
   const fmt = (iso) =>
-    new Date(iso).toLocaleString("fr-FR", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
+    new Date(iso).toLocaleString("it-IT", {
+      day: "2-digit", month: "2-digit", year: "numeric",
+      hour: "2-digit", minute: "2-digit",
     });
+
+  // ── Handlers messages ────────────────────────────────
+  const openMessage = (id) => {
+    const msg = messages.find((m) => m.id === id);
+    setExpanded(expanded === id ? null : id);
+    if (replyOpen === id) setReplyOpen(null);
+    if (msg && !msg.read) {
+      fetch(`${hostname}/admin/messages/${id}/read`, { method: "PATCH", credentials: "include" });
+      setMessages((prev) => prev.map((m) => m.id === id ? { ...m, read: true } : m));
+    }
+  };
 
   const openReply = (e, id) => {
     e.stopPropagation();
@@ -144,154 +94,280 @@ export default function AdminScreen() {
         body: JSON.stringify({ replyText }),
       });
       if (!r.ok) throw new Error();
-      setMessages((prev) =>
-        prev.map((m) => (m.id === id ? { ...m, replied: true } : m))
-      );
+      setMessages((prev) => prev.map((m) => m.id === id ? { ...m, replied: true } : m));
       setReplyOpen(null);
     } catch {
-      alert("Erreur lors de l'envoi. Réessayez.");
+      alert("Errore durante l'invio. Riprova.");
     } finally {
       setSending(false);
     }
   };
 
+  const deleteMsg = async (e, id) => {
+    e.stopPropagation();
+    try {
+      await fetch(`${hostname}/admin/messages/${id}`, { method: "DELETE", credentials: "include" });
+      setMessages((prev) => prev.filter((m) => m.id !== id));
+      if (expanded === id) setExpanded(null);
+    } catch {
+      alert("Errore durante l'eliminazione.");
+    }
+  };
+
+  // ── Handlers galerie ─────────────────────────────────
+  const uploadPhotos = async (e) => {
+    const files = Array.from(e.target.files);
+    if (!files.length) return;
+    setUploading(true);
+    setGalleryError(null);
+    for (const file of files) {
+      const formData = new FormData();
+      formData.append("image", file);
+      try {
+        const r = await fetch(`${hostname}/admin/gallery/upload`, {
+          method: "POST", credentials: "include", body: formData,
+        });
+        if (!r.ok) throw new Error();
+        const { url, key } = await r.json();
+        setGallery((prev) => [{ src: url, alt: "Photo", key }, ...prev]);
+      } catch {
+        setGalleryError("Errore durante l'upload di una o più foto.");
+      }
+    }
+    setUploading(false);
+    e.target.value = "";
+  };
+
+  const confirmAndDelete = async () => {
+    if (!confirmDelete) return;
+    try {
+      const r = await fetch(`${hostname}/admin/gallery`, {
+        method: "DELETE", credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ key: confirmDelete }),
+      });
+      if (!r.ok) throw new Error();
+      setGallery((prev) => prev.filter((p) => p.key !== confirmDelete));
+    } catch {
+      setGalleryError("Errore durante l'eliminazione.");
+    } finally {
+      setConfirmDelete(null);
+    }
+  };
+
+  // ── Handlers sections ────────────────────────────────
+  const uploadSection = async (e, slot) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setSectionUploading((prev) => ({ ...prev, [slot]: true }));
+    setSectionError(null);
+    const formData = new FormData();
+    formData.append("image", file);
+    try {
+      const r = await fetch(`${hostname}/admin/sections/${slot}`, {
+        method: "POST", credentials: "include", body: formData,
+      });
+      if (!r.ok) throw new Error();
+      const { url } = await r.json();
+      setSections((prev) => ({ ...prev, [slot]: url }));
+    } catch {
+      setSectionError("Errore durante l'upload.");
+    } finally {
+      setSectionUploading((prev) => ({ ...prev, [slot]: false }));
+      e.target.value = "";
+    }
+  };
+
   return (
     <div className="admin-page">
-      <h1 className="admin-title">Messages de contact</h1>
 
-      {loading && <p className="admin-empty">Chargement…</p>}
+      {/* ── HEADER ────────────────────────────────────── */}
+      <div className="admin-header">
+        <span className="admin-brand">Il Locale — Admin</span>
+        <a href="/" className="admin-view-site" target="_blank" rel="noreferrer">
+          <i className="fas fa-external-link-alt" /> Vedere il sito
+        </a>
+      </div>
 
-      {!loading && messages.length === 0 && (
-        <p className="admin-empty">Aucun message pour l&apos;instant.</p>
-      )}
+      {/* ── ONGLETS ───────────────────────────────────── */}
+      <div className="admin-tabs">
+        <button
+          className={`admin-tab${tab === "messages" ? " active" : ""}`}
+          onClick={() => setTab("messages")}
+        >
+          Messaggi
+          {unreadCount > 0 && <span className="admin-tab-badge">{unreadCount}</span>}
+        </button>
+        <button
+          className={`admin-tab${tab === "gallery" ? " active" : ""}`}
+          onClick={() => setTab("gallery")}
+        >
+          Galleria
+        </button>
+        <button
+          className={`admin-tab${tab === "sections" ? " active" : ""}`}
+          onClick={() => setTab("sections")}
+        >
+          Foto sezioni
+        </button>
+      </div>
 
-      <ul className="admin-list">
-        {messages.map((msg) => (
-          <li
-            key={msg.id}
-            className={`admin-card${expanded === msg.id ? " open" : ""}`}
-            onClick={() => {
-              setExpanded(expanded === msg.id ? null : msg.id);
-              if (replyOpen === msg.id) setReplyOpen(null);
-            }}
-          >
-            <div className="admin-card-header">
-              <span className="admin-card-name">{msg.name}</span>
-              <span className="admin-card-email">{msg.email}</span>
-              {msg.replied && <span className="admin-badge">Répondu</span>}
-              <span className="admin-card-date">{fmt(msg.createdAt)}</span>
-            </div>
+      {/* ── MESSAGES ──────────────────────────────────── */}
+      {tab === "messages" && (
+        <div className="admin-panel">
+          {loadingMsgs && <p className="admin-empty">Caricamento…</p>}
+          {!loadingMsgs && messages.length === 0 && (
+            <p className="admin-empty">Nessun messaggio per ora.</p>
+          )}
+          <ul className="admin-list">
+            {messages.map((msg) => (
+              <li
+                key={msg.id}
+                className={`admin-card${expanded === msg.id ? " open" : ""}${!msg.read ? " unread" : ""}`}
+                onClick={() => openMessage(msg.id)}
+              >
+                <div className="admin-card-header">
+                  {!msg.read && <span className="admin-unread-dot" />}
+                  <span className="admin-card-name">{msg.name}</span>
+                  <span className="admin-card-email">{msg.email}</span>
+                  {msg.replied && <span className="admin-badge">Risposto</span>}
+                  <span className="admin-card-date">{fmt(msg.createdAt)}</span>
+                </div>
 
-            {expanded === msg.id && (
-              <>
-                <p className="admin-card-body">{msg.message}</p>
+                {expanded === msg.id && (
+                  <>
+                    <p className="admin-card-body">{msg.message}</p>
 
-                {replyOpen === msg.id ? (
-                  <div className="admin-reply-form" onClick={(e) => e.stopPropagation()}>
-                    <textarea
-                      className="admin-reply-textarea"
-                      placeholder="Écrivez votre réponse…"
-                      value={replyText}
-                      onChange={(e) => setReplyText(e.target.value)}
-                      rows={4}
-                    />
-                    <div className="admin-reply-actions">
-                      <button
-                        className="admin-btn admin-btn-cancel"
-                        onClick={(e) => { e.stopPropagation(); setReplyOpen(null); }}
-                      >
-                        Annuler
-                      </button>
-                      <button
-                        className="admin-btn admin-btn-send"
-                        onClick={(e) => sendReply(e, msg.id)}
-                        disabled={sending || !replyText.trim()}
-                      >
-                        {sending ? "Envoi…" : "Envoyer la réponse"}
+                    <div className="admin-card-actions">
+                      {replyOpen === msg.id ? (
+                        <div className="admin-reply-form" onClick={(e) => e.stopPropagation()}>
+                          <textarea
+                            className="admin-reply-textarea"
+                            placeholder="Scrivi la tua risposta…"
+                            value={replyText}
+                            onChange={(e) => setReplyText(e.target.value)}
+                            rows={4}
+                          />
+                          <div className="admin-reply-actions">
+                            <button
+                              className="admin-btn admin-btn-cancel"
+                              onClick={(e) => { e.stopPropagation(); setReplyOpen(null); }}
+                            >
+                              Annulla
+                            </button>
+                            <button
+                              className="admin-btn admin-btn-send"
+                              onClick={(e) => sendReply(e, msg.id)}
+                              disabled={sending || !replyText.trim()}
+                            >
+                              {sending ? "Invio…" : "Invia risposta"}
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <button className="admin-btn admin-btn-reply" onClick={(e) => openReply(e, msg.id)}>
+                          <i className="fas fa-reply" /> Rispondi
+                        </button>
+                      )}
+                      <button className="admin-btn admin-btn-delete" onClick={(e) => deleteMsg(e, msg.id)}>
+                        <i className="fas fa-trash" /> Elimina
                       </button>
                     </div>
-                  </div>
-                ) : (
-                  <button
-                    className="admin-btn admin-btn-reply"
-                    onClick={(e) => openReply(e, msg.id)}
-                  >
-                    Répondre
-                  </button>
+                  </>
                 )}
-              </>
-            )}
-          </li>
-        ))}
-      </ul>
-
-      {/* ── GALLERIE ────────────────────────────────── */}
-      <h1 className="admin-title" style={{ marginTop: "3em" }}>Galerie</h1>
-
-      <div className="admin-gallery-upload">
-        <label className={`admin-btn admin-btn-send${uploading ? " disabled" : ""}`}>
-          {uploading ? "Chargement…" : "＋ Ajouter une photo"}
-          <input
-            type="file"
-            accept="image/jpeg,image/png,image/webp"
-            style={{ display: "none" }}
-            onChange={uploadPhoto}
-            disabled={uploading}
-          />
-        </label>
-        {galleryError && <p className="admin-gallery-error">{galleryError}</p>}
-      </div>
-
-      {gallery.length === 0 && !uploading && (
-        <p className="admin-empty">Aucune photo dans la galerie.</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
 
-      <div className="admin-gallery-grid">
-        {gallery.map((photo) => (
-          <div key={photo.key} className="admin-gallery-item">
-            <img src={photo.src} alt={photo.alt} />
-            <button
-              className="admin-gallery-delete"
-              onClick={() => deletePhoto(photo.key)}
-              title="Supprimer"
-            >
-              &#10005;
-            </button>
-          </div>
-        ))}
-      </div>
-
-      {/* ── PHOTOS SECTIONS ──────────────────────────── */}
-      <h1 className="admin-title" style={{ marginTop: "3em" }}>Photos des sections</h1>
-      <p className="admin-empty" style={{ marginBottom: "1.5em" }}>
-        Ces photos remplacent les images statiques du site.
-      </p>
-      {sectionError && <p className="admin-gallery-error">{sectionError}</p>}
-
-      <div className="admin-sections-grid">
-        {[
-          { slot: "hero",   label: "Hero (bannière principale)" },
-          { slot: "about",  label: "À propos" },
-          { slot: "events", label: "Événements (fond)" },
-        ].map(({ slot, label }) => (
-          <div key={slot} className="admin-section-item">
-            <p className="admin-section-label">{label}</p>
-            {sections[slot] && (
-              <img src={sections[slot]} alt={label} className="admin-section-preview" />
-            )}
-            <label className={`admin-btn admin-btn-send${sectionUploading[slot] ? " disabled" : ""}`}>
-              {sectionUploading[slot] ? "Chargement…" : sections[slot] ? "Changer la photo" : "＋ Charger une photo"}
+      {/* ── GALERIE ───────────────────────────────────── */}
+      {tab === "gallery" && (
+        <div className="admin-panel">
+          <div className="admin-gallery-upload">
+            <label className={`admin-btn admin-btn-send${uploading ? " disabled" : ""}`}>
+              {uploading ? "Caricamento…" : "＋ Aggiungi foto"}
               <input
                 type="file"
                 accept="image/jpeg,image/png,image/webp"
+                multiple
                 style={{ display: "none" }}
-                onChange={(e) => uploadSection(e, slot)}
-                disabled={!!sectionUploading[slot]}
+                onChange={uploadPhotos}
+                disabled={uploading}
               />
             </label>
+            {galleryError && <p className="admin-gallery-error">{galleryError}</p>}
           </div>
-        ))}
-      </div>
+
+          {gallery.length === 0 && !uploading && (
+            <p className="admin-empty">Nessuna foto nella galleria.</p>
+          )}
+
+          <div className="admin-gallery-grid">
+            {gallery.map((photo) => (
+              <div key={photo.key} className="admin-gallery-item">
+                <img src={photo.src} alt={photo.alt} />
+                <button
+                  className="admin-gallery-delete"
+                  onClick={() => setConfirmDelete(photo.key)}
+                  title="Elimina"
+                >
+                  &#10005;
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── SECTIONS ──────────────────────────────────── */}
+      {tab === "sections" && (
+        <div className="admin-panel">
+          {sectionError && <p className="admin-gallery-error">{sectionError}</p>}
+          <div className="admin-sections-grid">
+            {[
+              { slot: "hero",   label: "Hero (banner principale)" },
+              { slot: "about",  label: "Chi siamo" },
+              { slot: "events", label: "Eventi (sfondo)" },
+            ].map(({ slot, label }) => (
+              <div key={slot} className="admin-section-item">
+                <p className="admin-section-label">{label}</p>
+                {sections[slot] && (
+                  <img src={sections[slot]} alt={label} className="admin-section-preview" />
+                )}
+                <label className={`admin-btn admin-btn-send${sectionUploading[slot] ? " disabled" : ""}`}>
+                  {sectionUploading[slot] ? "Caricamento…" : sections[slot] ? "Cambia foto" : "＋ Carica foto"}
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    style={{ display: "none" }}
+                    onChange={(e) => uploadSection(e, slot)}
+                    disabled={!!sectionUploading[slot]}
+                  />
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── MODAL SUPPRESSION ─────────────────────────── */}
+      {confirmDelete && (
+        <div className="admin-modal-overlay" onClick={() => setConfirmDelete(null)}>
+          <div className="admin-modal" onClick={(e) => e.stopPropagation()}>
+            <p className="admin-modal-text">Eliminare questa foto?</p>
+            <div className="admin-modal-actions">
+              <button className="admin-btn admin-btn-cancel" onClick={() => setConfirmDelete(null)}>
+                Annulla
+              </button>
+              <button className="admin-btn admin-btn-danger" onClick={confirmAndDelete}>
+                Elimina
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

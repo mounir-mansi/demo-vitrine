@@ -29,6 +29,7 @@ model ContactMessage {
   email     String
   message   String
   replied   Boolean  @default(false)
+  read      Boolean  @default(false)
   messageId String? // RFC Message-ID pour le threading email
   createdAt DateTime @default(now())
 }

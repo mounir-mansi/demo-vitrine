@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { getAdminByEmail } = require("../controllers/AuthController");
-const { sendContactForm, getContactMessages, replyToMessage } = require("../controllers/ContactController");
+const { sendContactForm, getContactMessages, replyToMessage, markMessageRead, deleteMessage } = require("../controllers/ContactController");
 const { getInstagramFeed, refreshInstagramToken } = require("../controllers/InstagramController");
 const { listGallery, deleteGalleryPhoto } = require("../controllers/GalleryController");
 const { getSections } = require("../controllers/SectionsController");
@@ -22,6 +22,8 @@ router.get("/logout", blacklistToken);
 router.post("/contact", sendContactForm);
 router.get("/admin/messages", verifyToken, getContactMessages);
 router.post("/admin/messages/:id/reply", verifyToken, replyToMessage);
+router.patch("/admin/messages/:id/read", verifyToken, markMessageRead);
+router.delete("/admin/messages/:id", verifyToken, deleteMessage);
 
 // ── Instagram ─────────────────────────────────────────
 router.get("/api/instagram", getInstagramFeed);

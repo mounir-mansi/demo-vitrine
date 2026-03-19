@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../utils/useConnecte";
 import { hostname } from "../../HostnameConnect/Hostname";
+import "./ConnexionScreen.css";
 
 export default function ConnexionScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPwd, setShowPwd] = useState(false);
   const [error, setError] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -24,60 +26,62 @@ export default function ConnexionScreen() {
         login();
         navigate("/admin");
       } else {
-        setError("Email ou mot de passe incorrect.");
+        setError("Email o password errati.");
       }
     } catch {
-      setError("Erreur de connexion au serveur.");
+      setError("Errore di connessione al server.");
     }
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-        padding: "1em",
-      }}
-    >
-      <div style={{ width: "100%", maxWidth: "400px" }}>
-        <h1 style={{ textAlign: "center", marginBottom: "1.5em" }}>
-          Connexion Admin
-        </h1>
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1em" }}>
+    <div className="login-page">
+      <div className="login-box">
+        <div className="login-logo">
+          <p className="login-logo-name">Il Locale</p>
+          <p className="login-logo-sub">Accesso amministratore</p>
+        </div>
+
+        <form className="login-form" onSubmit={handleSubmit}>
           <input
+            className="login-input"
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={{ padding: "0.75em", borderRadius: "8px", border: "1px solid #ddd" }}
+            autoComplete="email"
           />
-          <input
-            type="password"
-            placeholder="Mot de passe"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={{ padding: "0.75em", borderRadius: "8px", border: "1px solid #ddd" }}
-          />
-          {error && <p style={{ color: "red", margin: 0 }}>{error}</p>}
-          <button
-            type="submit"
-            style={{
-              backgroundColor: "#4a4e69",
-              color: "white",
-              border: "none",
-              padding: "0.8em",
-              borderRadius: "8px",
-              fontSize: "1em",
-              cursor: "pointer",
-            }}
-          >
-            Se connecter
+
+          <div className="login-password-wrap">
+            <input
+              className="login-input"
+              type={showPwd ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              autoComplete="current-password"
+            />
+            <button
+              type="button"
+              className="login-eye"
+              onClick={() => setShowPwd((v) => !v)}
+              aria-label={showPwd ? "Nascondi password" : "Mostra password"}
+            >
+              <i className={showPwd ? "fas fa-eye-slash" : "fas fa-eye"} />
+            </button>
+          </div>
+
+          {error && <p className="login-error">{error}</p>}
+
+          <button type="submit" className="login-btn">
+            Accedi
           </button>
         </form>
+
+        <a href="/" className="login-back">
+          ← Torna al sito
+        </a>
       </div>
     </div>
   );

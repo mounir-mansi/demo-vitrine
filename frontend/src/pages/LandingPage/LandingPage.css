@@ -817,14 +817,74 @@
 /* ============================
    GOOGLE MAPS
    ============================ */
-.contact-map {
-  width: 100%;
+.contact-map-wrap {
+  position: relative;
   flex: 1;
   min-height: 0;
+  margin-top: 1.8em;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.contact-map {
+  width: 100%;
+  height: 100%;
   border-radius: 10px;
   border: none;
-  margin-top: 1.8em;
   display: block;
+  pointer-events: none;
+}
+
+.contact-map.active {
+  pointer-events: auto;
+}
+
+.contact-map-overlay {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  cursor: pointer;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 0.6rem;
+}
+
+.contact-map-overlay span {
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.78rem;
+  padding: 0.3em 0.9em;
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+/* ============================
+   BACK TO TOP
+   ============================ */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.25);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.back-to-top:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
 }
 
 /* ============================

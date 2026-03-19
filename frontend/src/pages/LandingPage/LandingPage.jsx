@@ -19,7 +19,16 @@ export default function LandingPage() {
   const [instaPhotos, setInstaPhotos] = useState([]);
   const [sections, setSections] = useState({});
   const [showAll, setShowAll] = useState(false);
+  const [showTop, setShowTop] = useState(false);
+  const [mapActive, setMapActive] = useState(false);
   const GALLERY_MAX = 5;
+
+  // Bouton retour en haut
+  useEffect(() => {
+    const handler = () => setShowTop(window.scrollY > 300);
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
 
   // Charge les photos Instagram (priorité 1)
   useEffect(() => {
@@ -323,14 +332,21 @@ export default function LandingPage() {
                 </a>
               </li>
             </ul>
-            <iframe
-              title="Localizzazione"
-              className="contact-map"
-              src="https://www.google.com/maps?q=Via+Brera+14+Milano&output=embed"
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="strict-origin-when-cross-origin"
-            />
+            <div className="contact-map-wrap" onClick={() => setMapActive(true)}>
+              <iframe
+                title="Localizzazione"
+                className={`contact-map${mapActive ? " active" : ""}`}
+                src="https://www.google.com/maps?q=Via+Brera+14+Milano&output=embed"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+              {!mapActive && (
+                <div className="contact-map-overlay">
+                  <span>Tocca per interagire con la mappa</span>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="contact-form-block">
@@ -384,6 +400,17 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* ── BACK TO TOP ────────────────────────────────── */}
+      {showTop && (
+        <button
+          className="back-to-top"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          aria-label="Torna in cima"
+        >
+          <i className="fas fa-chevron-up" />
+        </button>
+      )}
 
       {/* ── FOOTER ────────────────────────────────────── */}
       <footer className="footer">

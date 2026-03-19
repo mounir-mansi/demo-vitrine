@@ -71,4 +71,24 @@ const replyToMessage = async (req, res) => {
   return res.json({ ok: true });
 };
 
-module.exports = { sendContactForm, getContactMessages, replyToMessage };
+const markMessageRead = async ({ params }, res) => {
+  const id = parseInt(params.id);
+  try {
+    await prisma.contactMessage.update({ where: { id }, data: { read: true } });
+    return res.json({ ok: true });
+  } catch {
+    return res.status(404).json({ error: "Message introuvable." });
+  }
+};
+
+const deleteMessage = async (req, res) => {
+  const id = parseInt(req.params.id);
+  try {
+    await prisma.contactMessage.delete({ where: { id } });
+    return res.json({ ok: true });
+  } catch {
+    return res.status(404).json({ error: "Message introuvable." });
+  }
+};
+
+module.exports = { sendContactForm, getContactMessages, replyToMessage, markMessageRead, deleteMessage };

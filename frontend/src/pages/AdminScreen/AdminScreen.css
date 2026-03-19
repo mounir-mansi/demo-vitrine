@@ -1,15 +1,94 @@
 .admin-page {
   min-height: 100dvh;
-  padding: 6rem 2rem 3rem;
-  max-width: 800px;
-  margin: 0 auto;
+  padding-bottom: 3rem;
+  background: #111;
+  color: #eee;
 }
 
-.admin-title {
-  font-size: 1.6rem;
-  margin-bottom: 2rem;
-  color: var(--gold, #c9a84c);
-  letter-spacing: 0.05em;
+/* ── HEADER ─────────────────────────────────────────── */
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 2rem;
+  background: #1a1a1a;
+  border-bottom: 1px solid #2e2e2e;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.admin-brand {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--gold, #b8935a);
+  letter-spacing: 0.04em;
+}
+
+.admin-view-site {
+  font-size: 0.85rem;
+  color: #aaa;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  transition: color 0.2s;
+}
+
+.admin-view-site:hover {
+  color: var(--gold, #b8935a);
+}
+
+/* ── ONGLETS ─────────────────────────────────────────── */
+.admin-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid #2e2e2e;
+  background: #161616;
+  padding: 0 2rem;
+}
+
+.admin-tab {
+  position: relative;
+  padding: 0.9rem 1.4rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #888;
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.admin-tab:hover {
+  color: #ccc;
+}
+
+.admin-tab.active {
+  color: var(--gold, #b8935a);
+  border-bottom-color: var(--gold, #b8935a);
+}
+
+.admin-tab-badge {
+  background: #e74c3c;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 0.1em 0.5em;
+  min-width: 1.2em;
+  text-align: center;
+}
+
+/* ── PANEL ───────────────────────────────────────────── */
+.admin-panel {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
 .admin-empty {
@@ -17,6 +96,7 @@
   font-style: italic;
 }
 
+/* ── MESSAGES ────────────────────────────────────────── */
 .admin-list {
   list-style: none;
   padding: 0;
@@ -35,16 +115,28 @@
   transition: border-color 0.2s;
 }
 
+.admin-card.unread {
+  border-left: 3px solid var(--gold, #b8935a);
+}
+
 .admin-card:hover,
 .admin-card.open {
-  border-color: var(--gold, #c9a84c);
+  border-color: var(--gold, #b8935a);
 }
 
 .admin-card-header {
   display: flex;
-  align-items: baseline;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.75rem;
   flex-wrap: wrap;
+}
+
+.admin-unread-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold, #b8935a);
+  flex-shrink: 0;
 }
 
 .admin-card-name {
@@ -82,25 +174,49 @@
   padding: 0.1em 0.5em;
 }
 
-.admin-btn {
+.admin-card-actions {
+  display: flex;
+  gap: 0.5rem;
   margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* ── BOUTONS ─────────────────────────────────────────── */
+.admin-btn {
   padding: 0.45em 1.1em;
   border-radius: 6px;
   border: none;
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: 500;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 
 .admin-btn-reply {
   background: transparent;
-  border: 1px solid var(--gold, #c9a84c);
-  color: var(--gold, #c9a84c);
+  border: 1px solid var(--gold, #b8935a);
+  color: var(--gold, #b8935a);
 }
 
 .admin-btn-reply:hover {
-  background: var(--gold, #c9a84c);
+  background: var(--gold, #b8935a);
   color: #000;
+}
+
+.admin-btn-delete {
+  background: transparent;
+  border: 1px solid #555;
+  color: #888;
+  margin-left: auto;
+}
+
+.admin-btn-delete:hover {
+  border-color: #e74c3c;
+  color: #e74c3c;
 }
 
 .admin-reply-form {
@@ -108,6 +224,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
 }
 
 .admin-reply-textarea {
@@ -118,13 +235,14 @@
   color: #eee;
   padding: 0.6rem;
   font-size: 0.9rem;
+  font-family: inherit;
   resize: vertical;
   box-sizing: border-box;
 }
 
 .admin-reply-textarea:focus {
   outline: none;
-  border-color: var(--gold, #c9a84c);
+  border-color: var(--gold, #b8935a);
 }
 
 .admin-reply-actions {
@@ -145,20 +263,33 @@
 }
 
 .admin-btn-send {
-  background: var(--gold, #c9a84c);
+  background: var(--gold, #b8935a);
   color: #000;
+  border: none;
 }
 
 .admin-btn-send:hover:not(:disabled) {
-  background: #e0bb5f;
+  filter: brightness(1.1);
 }
 
-.admin-btn-send:disabled {
+.admin-btn-send:disabled,
+.admin-btn.disabled {
   opacity: 0.4;
   cursor: not-allowed;
+  pointer-events: none;
 }
 
-/* ── Galerie admin ────────────────────────────────── */
+.admin-btn-danger {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+}
+
+.admin-btn-danger:hover {
+  background: #c0392b;
+}
+
+/* ── GALERIE ─────────────────────────────────────────── */
 .admin-gallery-upload {
   display: flex;
   align-items: center;
@@ -182,7 +313,7 @@
   border-radius: 6px;
   overflow: hidden;
   aspect-ratio: 1;
-  background: #111;
+  background: #1a1a1a;
 }
 
 .admin-gallery-item img {
@@ -210,22 +341,16 @@
   transition: opacity 0.2s;
 }
 
-.admin-gallery-item:hover .admin-gallery-delete {
+.admin-gallery-item:hover .admin-gallery-delete,
+.admin-gallery-item:focus-within .admin-gallery-delete {
   opacity: 1;
 }
 
-.admin-btn.disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-/* ── Sections admin ───────────────────────────────── */
+/* ── SECTIONS ────────────────────────────────────────── */
 .admin-sections-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1.25rem;
-  margin-top: 0.5rem;
 }
 
 .admin-section-item {
@@ -251,4 +376,73 @@
   object-fit: cover;
   border-radius: 5px;
   border: 1px solid #333;
+}
+
+/* ── MODAL ───────────────────────────────────────────── */
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.admin-modal {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 2rem;
+  max-width: 360px;
+  width: 100%;
+}
+
+.admin-modal-text {
+  font-size: 1rem;
+  color: #eee;
+  margin: 0 0 1.5rem;
+  text-align: center;
+}
+
+.admin-modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+/* ── MOBILE ──────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .admin-header {
+    padding: 1rem;
+  }
+
+  .admin-tabs {
+    padding: 0 0.5rem;
+    overflow-x: auto;
+  }
+
+  .admin-tab {
+    padding: 0.8rem 1rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  .admin-panel {
+    padding: 1.25rem 1rem;
+  }
+
+  .admin-card-date {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .admin-gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+
+  .admin-gallery-delete {
+    opacity: 1;
+  }
 }

@@ -44,7 +44,7 @@
 .section-subtitle {
   color: var(--text-light);
   font-size: 1.05em;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
   text-wrap: pretty;
 }
 
@@ -52,12 +52,17 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
+/* Offset ancres pour navbar sticky */
+section[id] {
+  scroll-margin-top: 2.52em;
+}
+
 /* ============================
    HERO — plein écran
    ============================ */
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: calc(100vh - 2.8em);
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -171,10 +176,15 @@
    GALERIE
    ============================ */
 .gallery {
-  padding: 5em;
+  padding: 3em 5em 5em 5em;
   text-align: center;
   background-color: var(--navy);
   color: var(--white);
+  min-height: calc(100dvh - 3em);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 .gallery .section-title {
@@ -282,9 +292,23 @@
    MENU
    ============================ */
 .menu {
-  padding: 5em 5em;
+  padding: 5em;
+  padding-top: 3em;
   text-align: center;
-  background-color: var(--cream);
+  background-color: var(--primary);
+  min-height: calc(100vh - 2.6em);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.menu .section-title {
+  color: var(--white);
+}
+
+.menu .section-subtitle {
+  color: rgba(255,255,255,0.75);
 }
 
 .menu-grid {
@@ -351,11 +375,16 @@
    ============================ */
 .events {
   padding: 5em;
+  padding-top: 3em;
   background: linear-gradient(135deg, var(--navy) 0%, var(--primary-dark) 100%);
   background-size: cover;
   background-position: center;
   position: relative;
   color: var(--white);
+  min-height: calc(100vh - 2.5em);
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .events::before {
@@ -419,14 +448,13 @@
    CONTACT
    ============================ */
 .contact {
-  padding: 2em 5em;
+  padding: 2em 5em 5em 5em;
   background-color: var(--cream);
   box-sizing: border-box;
-  height: calc(100dvh - 65px);
-  scroll-margin-top: 65px;
+  min-height: calc(100dvh - 3em);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  justify-content: center;
 }
 
 .contact-wrapper {
@@ -576,6 +604,7 @@
   color: var(--accent);
   text-decoration: none;
   font-size: 0.95em;
+  margin-top: 0.2em;
 }
 
 .contact-link:hover {
@@ -665,6 +694,11 @@
 .about {
   padding: 5em;
   background-color: var(--white);
+  min-height: calc(100vh - 2.6em);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 .about-wrapper {

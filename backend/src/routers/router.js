@@ -32,7 +32,7 @@ router.get("/api/instagram/refresh", verifyToken, refreshInstagramToken);
 // ── Galerie ───────────────────────────────────────────
 router.get("/api/gallery", listGallery);
 router.post("/admin/gallery/upload", verifyToken, (req, res, next) => upload("gallery").single("image")(req, res, next), (req, res) => {
-  res.json({ url: req.file.location, key: req.file.key });
+  res.json({ url: `${process.env.S3_PUBLIC_URL}/${req.file.key}`, key: req.file.key });
 });
 router.delete("/admin/gallery", verifyToken, deleteGalleryPhoto);
 

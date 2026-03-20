@@ -978,12 +978,26 @@ section[id] {
   }
 
   .gallery-grid {
-    grid-template-rows: 350px;
-    grid-auto-rows: 220px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 320px;
+    grid-auto-rows: 200px;
+    gap: 0.6em;
   }
 
   .gallery-item--wide {
     grid-column: span 3;
+    height: 320px;
+    aspect-ratio: unset;
+  }
+
+  .gallery-item {
+    aspect-ratio: unset;
+    height: 200px;
+  }
+
+  .gallery-item--wide + .gallery-item {
+    aspect-ratio: unset;
+    height: 200px;
   }
 
   /* Contact — empiler verticalement */

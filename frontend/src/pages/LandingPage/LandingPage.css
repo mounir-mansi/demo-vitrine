@@ -1195,11 +1195,16 @@ section[id] {
   /* GALERIE — 1 colonne sur petit téléphone */
   .gallery-grid {
     grid-template-columns: 1fr;
+    grid-template-rows: initial;
   }
 
-  .gallery-item--wide {
+  .gallery-item--wide,
+  .gallery-item,
+  .gallery-item--wide + .gallery-item {
     grid-column: span 1;
-    aspect-ratio: 4/3;
+    aspect-ratio: unset;
+    height: 220px;
+    width: 100%;
   }
 
   /* MENU */

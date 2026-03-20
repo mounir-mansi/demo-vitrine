@@ -954,6 +954,66 @@ section[id] {
   }
 }
 
+/* ============================
+   TABLETTE 820–900px
+   ============================ */
+@media (max-width: 900px) {
+  /* Chi siamo — supprimer la hauteur forcée */
+  .about {
+    min-height: auto;
+    padding: 3.5em 3em;
+    justify-content: flex-start;
+  }
+
+  /* Events — supprimer la hauteur forcée */
+  .events {
+    min-height: auto;
+    padding: 3.5em 3em;
+  }
+
+  /* Gallery — photo principale pleine largeur, lignes égales */
+  .gallery {
+    min-height: auto;
+    padding: 3em 2em;
+  }
+
+  .gallery-grid {
+    grid-template-rows: 350px;
+    grid-auto-rows: 220px;
+  }
+
+  .gallery-item--wide {
+    grid-column: span 3;
+  }
+
+  /* Contact — empiler verticalement */
+  .contact {
+    min-height: auto;
+    padding: 3.5em 3em;
+  }
+
+  .contact-wrapper {
+    grid-template-columns: 1fr;
+    gap: 2em;
+    overflow: visible;
+  }
+
+  .contact-info-block,
+  .contact-form-block {
+    overflow: visible;
+  }
+
+  .contact-map {
+    height: 260px;
+    flex: none;
+  }
+
+  .contact-form textarea {
+    min-height: 120px;
+    flex: none;
+  }
+}
+
 @media (max-width: 768px) {
   /* HERO */
   .hero {

@@ -107,6 +107,25 @@
 /* ============================
    RESPONSIVE
    ============================ */
+@media (max-width: 900px) {
+  .site-nav {
+    padding: 0.6em 1.5em;
+  }
+
+  .site-nav-links {
+    gap: 1em;
+  }
+
+  .site-nav-links li a {
+    font-size: 0.85em;
+  }
+
+  .site-nav-call {
+    font-size: 0.78em;
+    padding: 0.4em 0.75em;
+  }
+}
+
 @media (max-width: 768px) {
   .site-nav {
     padding: 0.6em 1em;

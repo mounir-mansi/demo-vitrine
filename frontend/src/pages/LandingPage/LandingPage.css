@@ -1014,25 +1014,20 @@ section[id] {
 
   .gallery-grid {
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 320px;
-    grid-auto-rows: 200px;
+    grid-template-rows: initial;
     gap: 0.6em;
   }
 
   .gallery-item--wide {
     grid-column: span 3;
-    height: 320px;
     aspect-ratio: unset;
+    height: 280px;
   }
 
-  .gallery-item {
-    aspect-ratio: unset;
-    height: 200px;
-  }
-
+  .gallery-item,
   .gallery-item--wide + .gallery-item {
     aspect-ratio: unset;
-    height: 200px;
+    height: 230px;
   }
 
   /* Contact — empiler verticalement */
@@ -1112,11 +1107,20 @@ section[id] {
 
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 260px auto;
+    grid-template-rows: initial;
+    gap: 0.5em;
   }
 
   .gallery-item--wide {
     grid-column: span 2;
+    aspect-ratio: unset;
+    height: 240px;
+  }
+
+  .gallery-item,
+  .gallery-item--wide + .gallery-item {
+    aspect-ratio: unset;
+    height: 190px;
   }
 
   /* INFO BAND */

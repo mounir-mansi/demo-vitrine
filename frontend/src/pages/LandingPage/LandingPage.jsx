@@ -158,7 +158,7 @@ export default function LandingPage() {
             che fa sentire a casa.
           </p>
           <div className="hero-actions">
-            <a className="hero-button" href="#contact">Prenota</a>
+            <a className="hero-button" href="#prenota">Prenota</a>
             <a className="hero-button-outline" href="#menu">Scopri il menu</a>
           </div>
         </div>
@@ -370,7 +370,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="contact-form-block">
+          <div className="contact-form-block" id="prenota">
             <h3 className="contact-cta-title">Chiamaci</h3>
             <div className="contact-cta">
               <a href="tel:+390223456789" className="res-btn res-btn--primary">
@@ -426,7 +426,7 @@ export default function LandingPage() {
       {showTop && (
         <button
           className="back-to-top"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          onClick={() => document.getElementById("home")?.scrollIntoView({ behavior: "smooth", block: "start" })}
           aria-label="Torna in cima"
         >
           <i className="fas fa-chevron-up" />

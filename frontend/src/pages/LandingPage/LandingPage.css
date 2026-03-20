@@ -57,6 +57,11 @@ section[id] {
   scroll-margin-top: 2.52em;
 }
 
+/* #home est déjà à la position 0 — pas d'offset */
+#home {
+  scroll-margin-top: 0;
+}
+
 /* ============================
    HERO — plein écran
    ============================ */

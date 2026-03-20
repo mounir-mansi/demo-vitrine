@@ -946,41 +946,6 @@ section[id] {
 }
 
 /* ============================
-   GRAND ÉCRAN ≥1400px
-   ============================ */
-@media (min-width: 1400px) {
-  .about,
-  .menu,
-  .gallery,
-  .events,
-  .contact {
-    min-height: auto;
-    justify-content: flex-start;
-  }
-
-  .contact-wrapper {
-    grid-template-columns: 1fr;
-    gap: 2em;
-    overflow: visible;
-  }
-
-  .contact-info-block,
-  .contact-form-block {
-    overflow: visible;
-  }
-
-  .contact-map {
-    height: 280px;
-    flex: none;
-  }
-
-  .contact-form textarea {
-    min-height: 140px;
-    flex: none;
-  }
-}
-
-/* ============================
    RESPONSIVE
    ============================ */
 @media (max-width: 1024px) {

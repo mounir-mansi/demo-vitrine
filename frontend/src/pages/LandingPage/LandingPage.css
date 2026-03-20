@@ -1137,6 +1137,12 @@ section[id] {
 
   .res-btn {
     justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .contact-cta {
+    flex-direction: column;
   }
 
   /* CONTACT */

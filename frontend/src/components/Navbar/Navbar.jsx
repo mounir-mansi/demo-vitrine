@@ -27,10 +27,6 @@ export default function Navbar() {
         <span className="site-nav-logo-text">Il Locale</span>
       </a>
 
-      <a href="tel:+390223456789" className="site-nav-call" onClick={close}>
-        <i className="fas fa-phone" /> +39 02 2345 6789
-      </a>
-
       <button
         className="site-nav-burger"
         onClick={() => setMenuOpen(!menuOpen)}
@@ -56,6 +52,11 @@ export default function Navbar() {
             </li>
           </>
         )}
+        <li className="site-nav-call-item">
+          <a href="tel:+390223456789" className="site-nav-call" onClick={close}>
+            <i className="fas fa-phone" /> +39 02 2345 6789
+          </a>
+        </li>
       </ul>
     </nav>
   );

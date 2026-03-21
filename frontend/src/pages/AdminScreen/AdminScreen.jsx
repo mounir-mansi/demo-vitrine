@@ -340,15 +340,36 @@ export default function AdminScreen() {
       {tab === "gallery" && (
         <div className="admin-panel">
 
-          {/* Photo principale — pleine largeur en haut */}
-          {mainPhoto ? (
-            <div className="admin-gallery-main-slot">
-              <img src={mainPhoto.src} alt="principale" className="admin-gallery-main-preview" />
-              <span className="admin-gallery-main-label">
-                {uploadingMain ? "Caricamento…" : "Foto principale"}
-              </span>
-              <label className="admin-gallery-replace" title="Sostituisci">
-                <i className="fas fa-pencil-alt" />
+          {galleryError && <p className="admin-gallery-error">{galleryError}</p>}
+
+          {/* Top : main photo (2/3) + add slot (1/3) */}
+          <div className="admin-gallery-top">
+            {mainPhoto ? (
+              <div className="admin-gallery-main-slot">
+                <img src={mainPhoto.src} alt="principale" className="admin-gallery-main-preview" />
+                <span className="admin-gallery-main-label">
+                  {uploadingMain ? "Caricamento…" : "Foto principale"}
+                </span>
+                <label className="admin-gallery-replace" title="Sostituisci">
+                  <i className="fas fa-pencil-alt" />
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    style={{ display: "none" }}
+                    onChange={uploadMainPhoto}
+                    disabled={uploadingMain}
+                  />
+                </label>
+                <button className="admin-gallery-main-delete" onClick={() => setConfirmDelete("gallery/main")} title="Elimina">
+                  &#10005;
+                </button>
+              </div>
+            ) : (
+              <label className={`admin-gallery-main-slot admin-gallery-main-btn${uploadingMain ? " disabled" : ""}`}>
+                <span className="admin-gallery-main-placeholder"><i className="fas fa-image" /><br />Foto principale</span>
+                <span className="admin-gallery-main-label">
+                  {uploadingMain ? "Caricamento…" : "＋ Carica foto principale"}
+                </span>
                 <input
                   type="file"
                   accept="image/jpeg,image/png,image/webp"
@@ -357,30 +378,7 @@ export default function AdminScreen() {
                   disabled={uploadingMain}
                 />
               </label>
-              <button className="admin-gallery-main-delete" onClick={() => setConfirmDelete("gallery/main")} title="Elimina">
-                &#10005;
-              </button>
-            </div>
-          ) : (
-            <label className={`admin-gallery-main-slot admin-gallery-main-btn${uploadingMain ? " disabled" : ""}`}>
-              <span className="admin-gallery-main-placeholder"><i className="fas fa-image" /><br />Foto principale</span>
-              <span className="admin-gallery-main-label">
-                {uploadingMain ? "Caricamento…" : "＋ Carica foto principale"}
-              </span>
-              <input
-                type="file"
-                accept="image/jpeg,image/png,image/webp"
-                style={{ display: "none" }}
-                onChange={uploadMainPhoto}
-                disabled={uploadingMain}
-              />
-            </label>
-          )}
-
-          {galleryError && <p className="admin-gallery-error">{galleryError}</p>}
-
-          {/* Grid 2 colonnes : bouton ajout + photos */}
-          <div className="admin-gallery-grid">
+            )}
             <label className={`admin-gallery-add-slot${uploading ? " disabled" : ""}`}>
               <i className="fas fa-plus" style={{ fontSize: "1.4rem" }} />
               {uploading ? "Caricamento…" : "Aggiungi foto"}
@@ -393,6 +391,10 @@ export default function AdminScreen() {
                 disabled={uploading}
               />
             </label>
+          </div>
+
+          {/* Grid 3 colonnes : photos uniquement */}
+          <div className="admin-gallery-grid">
             {gallery.map((photo) => (
               <div key={photo.key} className="admin-gallery-item">
                 <img src={photo.src} alt={photo.alt} />

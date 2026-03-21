@@ -472,7 +472,6 @@ section[id] {
   width: 100%;
   flex: 1;
   min-height: 0;
-  overflow: hidden;
 }
 
 .contact-details {
@@ -533,14 +532,12 @@ section[id] {
   justify-content: flex-start;
   align-self: stretch;
   min-height: 0;
-  overflow: hidden;
 }
 
 .contact-info-block {
   display: flex;
   flex-direction: column;
   min-height: 0;
-  overflow: hidden;
 }
 
 .contact-form-block h3 {

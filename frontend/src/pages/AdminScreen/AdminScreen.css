@@ -314,10 +314,7 @@
 
 /* ── GALERIE ─────────────────────────────────────────── */
 .admin-gallery-top {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
   height: 280px;
-  gap: 1rem;
   margin-bottom: 1rem;
 }
 

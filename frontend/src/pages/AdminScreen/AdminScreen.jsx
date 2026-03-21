@@ -342,7 +342,7 @@ export default function AdminScreen() {
 
           {galleryError && <p className="admin-gallery-error">{galleryError}</p>}
 
-          {/* Top : photo principale pleine largeur */}
+          {/* Top : photo principale (2/3) + slot ajout (1/3) */}
           <div className="admin-gallery-top">
             {mainPhoto ? (
               <div className="admin-gallery-main-slot">
@@ -379,10 +379,6 @@ export default function AdminScreen() {
                 />
               </label>
             )}
-          </div>
-
-          {/* Grid 3 colonnes : slot ajout + photos */}
-          <div className="admin-gallery-grid">
             <label className={`admin-gallery-add-slot${uploading ? " disabled" : ""}`}>
               <i className="fas fa-plus" style={{ fontSize: "1.4rem" }} />
               {uploading ? "Caricamento…" : "Aggiungi foto"}
@@ -395,6 +391,10 @@ export default function AdminScreen() {
                 disabled={uploading}
               />
             </label>
+          </div>
+
+          {/* Grid 3 colonnes : photos */}
+          <div className="admin-gallery-grid">
             {gallery.map((photo) => (
               <div key={photo.key} className="admin-gallery-item">
                 <img src={photo.src} alt={photo.alt} />

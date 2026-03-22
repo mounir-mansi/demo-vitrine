@@ -158,7 +158,10 @@ export default function LandingPage() {
             che fa sentire a casa.
           </p>
           <div className="hero-actions">
-            <a className="hero-button" href="#prenota">Prenota</a>
+            <a
+  className="hero-button"
+  href={window.innerWidth <= 768 ? "#prenota" : "#contact"}
+>Prenota</a>
             <a className="hero-button-outline" href="#menu">Scopri il menu</a>
           </div>
         </div>

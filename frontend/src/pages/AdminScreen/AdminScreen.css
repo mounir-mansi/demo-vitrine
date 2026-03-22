@@ -365,14 +365,16 @@
 }
 
 .admin-gallery-main-label {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 1;
   background: rgba(0,0,0,0.55);
   color: #fff;
   font-size: 0.9rem;
   font-weight: 600;
   padding: 0.5rem 1rem;
-  width: 100%;
   text-align: center;
   box-sizing: border-box;
 }
@@ -607,7 +609,8 @@
   }
 
   .admin-sections-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 200px;
   }
 
   .admin-card-date {

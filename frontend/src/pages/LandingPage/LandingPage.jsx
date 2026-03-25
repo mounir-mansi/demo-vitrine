@@ -275,7 +275,7 @@ export default function LandingPage() {
         )}
         {instaPhotos.length > 0 && (
           <a
-            href="https://www.instagram.com/illocale.milano"
+            href="https://www.instagram.com/illocale.torino"
             target="_blank"
             rel="noreferrer"
             className="insta-link"
@@ -317,7 +317,7 @@ export default function LandingPage() {
           </div>
           <a
             className="hero-button light-btn"
-            href="https://www.instagram.com/illocale.milano"
+            href="https://www.instagram.com/illocale.torino"
             target="_blank"
             rel="noreferrer"
           >
@@ -347,12 +347,12 @@ export default function LandingPage() {
               <li>
                 <i className="fab fa-instagram" />
                 <a
-                  href="https://www.instagram.com/illocale.milano"
+                  href="https://www.instagram.com/illocale.torino"
                   target="_blank"
                   rel="noreferrer"
                   className="contact-link"
                 >
-                  @illocale.milano
+                  @illocale.torino
                 </a>
               </li>
             </ul>

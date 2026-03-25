@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="12" fill="#1a1a2e"/>
+  <!-- Verre cocktail -->
+  <polygon points="16,10 48,10 36,30 36,48 28,48 28,30" fill="none" stroke="#c8962a" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Base -->
+  <line x1="22" y1="54" x2="42" y2="54" stroke="#c8962a" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="32" y1="48" x2="32" y2="54" stroke="#c8962a" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Liquide -->
+  <polygon points="23,18 41,18 36,30 28,30" fill="#c8962a" opacity="0.5"/>
+  <!-- Olive -->
+  <circle cx="44" cy="10" r="3.5" fill="#4a7c59"/>
+  <line x1="32" y1="10" x2="44" y2="10" stroke="#c8962a" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

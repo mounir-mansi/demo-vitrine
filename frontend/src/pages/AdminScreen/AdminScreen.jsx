@@ -237,9 +237,14 @@ export default function AdminScreen() {
       {/* ── HEADER ────────────────────────────────────── */}
       <div className="admin-header">
         <span className="admin-brand">Il Locale — Admin</span>
-        <a href="/" className="admin-view-site" target="_blank" rel="noreferrer">
-          <i className="fas fa-external-link-alt" /> Vedere il sito
-        </a>
+        <div className="admin-header-actions">
+          <a href="/#home" className="admin-nav-link">Home</a>
+          <a href="/#about" className="admin-nav-link">A propos</a>
+          <a href="/#menu" className="admin-nav-link">Menu</a>
+          <a href="/#gallery" className="admin-nav-link">Galleria</a>
+          <a href="/#events" className="admin-nav-link">Eventi</a>
+          <a href="/#contact" className="admin-nav-link">Contatto</a>
+        </div>
       </div>
 
       {/* ── ONGLETS ───────────────────────────────────── */}

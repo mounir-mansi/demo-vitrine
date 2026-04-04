@@ -25,66 +25,80 @@
   letter-spacing: 0.04em;
 }
 
-.admin-view-site {
-  font-size: 0.85rem;
-  color: rgba(255,255,255,0.7);
-  text-decoration: none;
+.admin-header-actions {
   display: flex;
+  gap: 0.5em;
   align-items: center;
-  gap: 0.4em;
-  transition: color 0.2s;
 }
 
-.admin-view-site:hover {
+.admin-nav-link {
+  color: rgba(255,255,255,0.8);
+  font-size: 0.84rem;
+  font-weight: 500;
+  padding: 0.3em 0.6em;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: color 0.2s, background 0.2s;
+}
+
+.admin-nav-link:hover {
   color: #fff;
+  background: rgba(255,255,255,0.12);
+}
+
+.admin-nav-sep {
+  width: 1px;
+  height: 1.2em;
+  background: rgba(255,255,255,0.25);
+  flex-shrink: 0;
 }
 
 /* ── ONGLETS ─────────────────────────────────────────── */
 .admin-tabs-wrap {
-  padding: 1rem 2rem 0;
+  padding: 0 2rem;
   background: #fff;
+  border-bottom: 2px solid var(--primary, #0d2149);
   display: flex;
-  justify-content: center;
 }
 
 .admin-tabs {
   display: flex;
-  gap: 0.5rem;
-  background: var(--primary, #0d2149);
-  padding: 0.75rem 1rem;
-  border-radius: 12px;
+  gap: 0;
+  background: none;
+  padding: 0;
+  border-radius: 0;
   width: 100%;
-  max-width: 1100px;
-  justify-content: center;
 }
 
 .admin-tab {
-  position: relative;
-  flex: 1;
-  padding: 1rem 1rem;
-  background: rgba(255,255,255,0.1);
+  padding: 0.8em 1.5em;
+  background: none;
   border: none;
-  border-radius: 8px;
-  color: rgba(255,255,255,0.65);
-  font-size: 1.05rem;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  color: var(--text-light, #5a6a7a);
+  font-size: 0.92rem;
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: color 0.2s, border-color 0.2s;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5em;
+  border-radius: 0;
 }
 
 .admin-tab:hover {
-  background: rgba(255,255,255,0.18);
-  color: #fff;
+  background: none;
+  color: var(--primary, #0d2149);
 }
 
 .admin-tab.active {
-  background: var(--accent, #f5a623);
-  color: #fff;
+  color: var(--primary, #0d2149);
+  border-bottom-color: var(--primary, #0d2149);
+  background: rgba(13,33,73,0.08);
+  border-radius: 6px 6px 0 0;
+  font-weight: 700;
 }
 
 .admin-tab-badge {
